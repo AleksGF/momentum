@@ -1,4 +1,4 @@
 export const settings = {
-  lang: 'ru',
+  language: 'ru',
   city: 'Kyiv',
 };
