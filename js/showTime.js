@@ -11,7 +11,8 @@ const showTime = options => {
     dateField.textContent = getDate(options.locale, options.dateOptions);
   };
 
-  let timerId = null;
+  update();
+  let timerId = setInterval(update, 1000);
 
   window.addEventListener('focus', () => {
     if (!timerId) timerId = setInterval(update, 1000);
@@ -23,8 +24,6 @@ const showTime = options => {
       timerId = null;
     }
   });
-
-  window.focus();
 };
 
 export default showTime;
