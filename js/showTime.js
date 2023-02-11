@@ -6,16 +6,17 @@ const showTime = options => {
 
   const getDate = (locale, options) => new Date().toLocaleDateString(locale, options);
 
-  const update = () => {
+  const updateTimeAndDateField = () => {
     timeField.textContent = getTime(options.locale);
     dateField.textContent = getDate(options.locale, options.dateOptions);
   };
 
-  update();
-  let timerId = setInterval(update, 1000);
+  updateTimeAndDateField();
+
+  let timerId = setInterval(updateTimeAndDateField, 1000);
 
  /* window.addEventListener('focus', () => {
-    if (!timerId) timerId = setInterval(update, 1000);
+    if (!timerId) timerId = setInterval(updateTimeAndDateField, 1000);
   });
 
   window.addEventListener('blur', () => {
