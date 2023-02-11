@@ -14,7 +14,7 @@ const showTime = options => {
   update();
   let timerId = setInterval(update, 1000);
 
-  window.addEventListener('focus', () => {
+ /* window.addEventListener('focus', () => {
     if (!timerId) timerId = setInterval(update, 1000);
   });
 
@@ -23,7 +23,7 @@ const showTime = options => {
       clearInterval(timerId);
       timerId = null;
     }
-  });
+  });*/
 };
 
 export default showTime;
