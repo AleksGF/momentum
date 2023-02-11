@@ -1,20 +1,32 @@
 const showGreeting = options => {
   const welcomeMsgField = document.querySelector('.greeting');
+  const userNameField = document.querySelector('.name');
+
+  let userName = options.nameValue;
+  const setUserName = options.setUserName;
+
+  const userNameUpdate = e => {
+    userName = e.target.value;
+    setUserName(userName);
+  };
+
+  userNameField.addEventListener('input', userNameUpdate);
 
   const getPartOfDay = () => Math.floor(new Date().getHours() / 6);
 
   const getGreeting = messages => messages[getPartOfDay()];
 
-  const updateWelcomeMsgField = () => {
-    return welcomeMsgField.textContent = getGreeting(options.welcomeMsgs);
+  const updateWelcomeMsg = () => {
+    welcomeMsgField.textContent = getGreeting(options.welcomeMsgs) + ', ';
+    userNameField.value = userName;
   };
 
-  updateWelcomeMsgField();
+  updateWelcomeMsg();
 
-  let timerId = setInterval(updateWelcomeMsgField, 60000);
+  let timerId = setInterval(updateWelcomeMsg, 60000);
 
   /* window.addEventListener('focus', () => {
-     if (!timerId) timerId = setInterval(updateWelcomeMsgField, 60000);
+     if (!timerId) timerId = setInterval(updateWelcomeMsg, 60000);
    });
 
    window.addEventListener('blur', () => {
