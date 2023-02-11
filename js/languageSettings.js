@@ -3,7 +3,7 @@ const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'num
 const en = {
   locale: 'en-Us',
   languageName: 'English',
-  welcomeMsgs: ['Good night', 'Good morning', 'Good afternoon', 'Good evening'],
+  welcomeMsgs: ['Good Night', 'Good Morning', 'Good Afternoon', 'Good Evening'],
   namePlaceholder: 'Enter your name',
   dateOptions,
 };
