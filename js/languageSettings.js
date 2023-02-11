@@ -3,22 +3,24 @@ const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'num
 const en = {
   locale: 'en-Us',
   languageName: 'English',
-  welcomeMsg: 'Welcome',
+  welcomeMsgs: ['Good night', 'Good morning', 'Good afternoon', 'Good evening'],
   dateOptions,
 };
 
 const uk = {
   locale: 'uk-Ua',
   languageName: 'Українська',
-  welcomeMsg: 'Ласкаво просимо',
+  welcomeMsgs: ['Доброї ночі', 'Доброго ранку', 'Доброго дня', 'Доброго вечора'],
   dateOptions,
 };
 
 const ru = {
   locale: 'ru-Ru',
   languageName: 'Русский',
-  welcomeMsg: 'Добро пожаловать',
+  welcomeMsgs: ['Доброй ночи', 'Доброго утра', 'Доброго дня', 'Доброго вечера'],
   dateOptions,
 };
 
-export const languageSettings = { en, uk, ru };
+const languageSettings = { en, uk, ru };
+
+export default languageSettings;
