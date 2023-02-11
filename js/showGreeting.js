@@ -5,9 +5,11 @@ const showGreeting = options => {
 
   const getGreeting = messages => messages[getPartOfDay()];
 
-  const updateWelcomeMsgField = function() {
+  const updateWelcomeMsgField = () => {
     return welcomeMsgField.textContent = getGreeting(options.welcomeMsgs);
-  }();
+  };
+
+  updateWelcomeMsgField();
 
   let timerId = setInterval(updateWelcomeMsgField, 60000);
 
