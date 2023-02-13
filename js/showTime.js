@@ -6,14 +6,23 @@ const showTime = options => {
 
   const getDate = (locale, options) => new Date().toLocaleDateString(locale, options);
 
+  const getPartOfDay = () => Math.floor(new Date().getHours() / 6);
+
   const updateTimeAndDateField = () => {
+    const partOfDay = getPartOfDay();
+
+    if (partOfDay !== options.state.partOfDay) {
+      options.setPartOfDay(partOfDay, options.state);
+    }
+
     timeField.textContent = getTime(options.locale);
     dateField.textContent = getDate(options.locale, options.dateOptions);
+
   };
 
   updateTimeAndDateField();
 
-  let timerId = setInterval(updateTimeAndDateField, 1000);
+  /*let timerId = */setInterval(updateTimeAndDateField, 1000);
 
  /* window.addEventListener('focus', () => {
     if (!timerId) timerId = setInterval(updateTimeAndDateField, 1000);

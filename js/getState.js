@@ -18,6 +18,7 @@ const state = {
   language: getBrowserLanguage() || 'en',
   userName,
   city: 'Kyiv',
+  partOfDay: null,
 };
 
 export default state;
