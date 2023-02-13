@@ -14,11 +14,14 @@ const getBrowserLanguage = () => {
   return null;
 };
 
+const getRandom = () => String(Math.floor(Math.random() * 19) + 1).padStart(2, '0');
+
 const state = {
   language: getBrowserLanguage() || 'en',
   userName,
   city: 'Kyiv',
   partOfDay: null,
+  backgroundNumber: getRandom(),
 };
 
 export default state;
