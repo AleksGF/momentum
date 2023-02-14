@@ -5,6 +5,9 @@ const en = {
   languageName: 'English',
   welcomeMsgs: ['Good Night', 'Good Morning', 'Good Afternoon', 'Good Evening'],
   namePlaceholder: 'Enter your name',
+  cityPlaceholder: 'Your city',
+  weatherUnits: ['m/s', 'mmHg'],
+  windDirections: ['N', 'NE', 'NE', 'E', 'E', 'SE', 'SE', 'S', 'S', 'SW', 'SW', 'W', 'W', 'NW', 'NW', 'N'],
   dateOptions,
 };
 
@@ -13,6 +16,9 @@ const uk = {
   languageName: 'Українська',
   welcomeMsgs: ['Доброї ночі', 'Доброго ранку', 'Доброго дня', 'Доброго вечора'],
   namePlaceholder: "Введіть Ваше ім'я",
+  cityPlaceholder: 'Ваше місто',
+  weatherUnits: ['м/с', 'мм рт.ст.'],
+  windDirections: ['Пн.', 'Пн.Сх.', 'Пн.Сх.', 'Сх.', 'Сх.', 'Пд.Сх.', 'Пд.Сх.', 'Пд.', 'Пд.', 'Пд.Зх.', 'Пд.Зх.', 'Зх.', 'Зх.', 'Пн.Зх.', 'Пн.Зх.', 'Пн.'],
   dateOptions,
 };
 
@@ -21,6 +27,9 @@ const ru = {
   languageName: 'Русский',
   welcomeMsgs: ['Доброй ночи', 'Доброго утра', 'Доброго дня', 'Доброго вечера'],
   namePlaceholder: "Введите Ваше имя",
+  cityPlaceholder: 'Ваш город',
+  weatherUnits: ['м/с', 'мм рт.ст.'],
+  windDirections: ['С', 'СВ', 'СВ', 'В', 'В', 'ЮВ', 'ЮВ', 'Ю', 'Ю', 'ЮЗ', 'ЮЗ', 'З', 'З', 'СЗ', 'СЗ', 'С'],
   dateOptions,
 };
 

@@ -19,6 +19,10 @@ const setState = {
   setBackgroundNumber: (newNumber, state) => {
     state.backgroundNumber = newNumber;
   },
+
+  city: newCity => {
+    localStorage.setItem('city', newCity);
+  },
 }
 
 export default setState;

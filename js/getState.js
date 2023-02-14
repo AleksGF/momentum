@@ -1,4 +1,5 @@
 const userName = localStorage.getItem('userName');
+const city = localStorage.getItem('city');
 
 const getBrowserLanguage = () => {
   const supportedLanguages = ['en', 'uk', 'ru'];
@@ -11,17 +12,21 @@ const getBrowserLanguage = () => {
     if (supportedLanguages.includes(userLanguages[i])) return userLanguages[i];
   }
 
-  return null;
+  return 'en';
 };
+
+const language = getBrowserLanguage();
 
 const getRandom = () => String(Math.floor(Math.random() * 19) + 1).padStart(2, '0');
 
+const backgroundNumber = getRandom();
+
 const state = {
-  language: getBrowserLanguage() || 'en',
+  language,
   userName,
-  city: 'Kyiv',
+  city,
   partOfDay: null,
-  backgroundNumber: getRandom(),
+  backgroundNumber,
 };
 
 export default state;
