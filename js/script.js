@@ -26,9 +26,11 @@ showTime({
 });
 
 showWeather({
-  cityValue: state.city || languageSettings[state.language].cityPlaceholder,
+  city: state.city,
+  cityPlaceholder: languageSettings[state.language].cityPlaceholder,
   setCity: setState.city,
   language: state.language,
   weatherUnits: languageSettings[state.language].weatherUnits,
   windDirections: languageSettings[state.language].windDirections,
+  errorMsg: languageSettings[state.language].errorMsg,
 });

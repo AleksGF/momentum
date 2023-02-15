@@ -8,6 +8,7 @@ const en = {
   cityPlaceholder: 'Your city',
   weatherUnits: ['m/s', 'mmHg'],
   windDirections: ['N', 'NE', 'NE', 'E', 'E', 'SE', 'SE', 'S', 'S', 'SW', 'SW', 'W', 'W', 'NW', 'NW', 'N'],
+  errorMsg: 'Some error',
   dateOptions,
 };
 
@@ -19,6 +20,7 @@ const uk = {
   cityPlaceholder: 'Ваше місто',
   weatherUnits: ['м/с', 'мм рт.ст.'],
   windDirections: ['Пн.', 'Пн.Сх.', 'Пн.Сх.', 'Сх.', 'Сх.', 'Пд.Сх.', 'Пд.Сх.', 'Пд.', 'Пд.', 'Пд.Зх.', 'Пд.Зх.', 'Зх.', 'Зх.', 'Пн.Зх.', 'Пн.Зх.', 'Пн.'],
+  errorMsg: 'Сталася помилка',
   dateOptions,
 };
 
@@ -30,6 +32,7 @@ const ru = {
   cityPlaceholder: 'Ваш город',
   weatherUnits: ['м/с', 'мм рт.ст.'],
   windDirections: ['С', 'СВ', 'СВ', 'В', 'В', 'ЮВ', 'ЮВ', 'Ю', 'Ю', 'ЮЗ', 'ЮЗ', 'З', 'З', 'СЗ', 'СЗ', 'С'],
+  errorMsg: 'Произошла ошибка',
   dateOptions,
 };
 
