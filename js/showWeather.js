@@ -53,7 +53,7 @@ const showWeather = options => {
   } else if (navigator.geolocation) {
     const getCity = async function({latitude, longitude}, key) {
       try {
-        const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${
+        const url = `https://api.openweathermap.org/geo/1.0/reverse?lat=${
           latitude
         }&lon=${
           longitude
