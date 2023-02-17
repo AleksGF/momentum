@@ -13,8 +13,8 @@ const showQuote = options => {
 
   const getQuote = async function(language) {
     const getApiUrl = language => window.location.hostname === 'localhost'
-        ? 'https://cors-anywhere.herokuapp.com/' + `http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=${language}`
-        : `http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=${language}`;
+        ? 'https://cors-anywhere.herokuapp.com/' + `https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=${language}`
+        : `https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=${language}`;
 
     const fetchQuote = async function(url) {
       const resp = await fetch(url);
