@@ -9,6 +9,7 @@ const en = {
   weatherUnits: ['m/s', 'mmHg'],
   windDirections: ['N', 'NE', 'NE', 'E', 'E', 'SE', 'SE', 'S', 'S', 'SW', 'SW', 'W', 'W', 'NW', 'NW', 'N'],
   errorMsg: 'Some error',
+  anonimValue: 'Anonim',
   dateOptions,
 };
 
@@ -21,6 +22,7 @@ const uk = {
   weatherUnits: ['м/с', 'мм рт.ст.'],
   windDirections: ['Пн.', 'Пн.Сх.', 'Пн.Сх.', 'Сх.', 'Сх.', 'Пд.Сх.', 'Пд.Сх.', 'Пд.', 'Пд.', 'Пд.Зх.', 'Пд.Зх.', 'Зх.', 'Зх.', 'Пн.Зх.', 'Пн.Зх.', 'Пн.'],
   errorMsg: 'Сталася помилка',
+  anonimValue: 'Анонім',
   dateOptions,
 };
 
@@ -33,6 +35,7 @@ const ru = {
   weatherUnits: ['м/с', 'мм рт.ст.'],
   windDirections: ['С', 'СВ', 'СВ', 'В', 'В', 'ЮВ', 'ЮВ', 'Ю', 'Ю', 'ЮЗ', 'ЮЗ', 'З', 'З', 'СЗ', 'СЗ', 'С'],
   errorMsg: 'Произошла ошибка',
+  anonimValue: 'Аноним',
   dateOptions,
 };
 

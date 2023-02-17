@@ -5,6 +5,7 @@ import showTime from "./showTime.js";
 import showGreeting from "./showGreeting.js";
 import changeBackground from "./changeBackground.js";
 import showWeather from "./showWeather.js";
+import showQuote from "./showQuote.js";
 
 setState.partOfDay.subscribeOnChange(() => showGreeting({
   welcomeMsgs: languageSettings[state.language].welcomeMsgs,
@@ -33,4 +34,9 @@ showWeather({
   weatherUnits: languageSettings[state.language].weatherUnits,
   windDirections: languageSettings[state.language].windDirections,
   errorMsg: languageSettings[state.language].errorMsg,
+});
+
+showQuote({
+  language: state.language,
+  anonimValue: languageSettings[state.language].anonimValue,
 });
