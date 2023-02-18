@@ -58,7 +58,7 @@ body {
 }
 
 .play-item::before {
-  content: "\2713";
+  content: "\23F5";
   position: absolute;
   left: 0;
   top: 2px;

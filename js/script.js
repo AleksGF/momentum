@@ -6,6 +6,7 @@ import showGreeting from "./showGreeting.js";
 import changeBackground from "./changeBackground.js";
 import showWeather from "./showWeather.js";
 import showQuote from "./showQuote.js";
+import addPlayer from "./addPlayer.js";
 
 setState.partOfDay.subscribeOnChange(() => showGreeting({
   welcomeMsgs: languageSettings[state.language].welcomeMsgs,
@@ -40,3 +41,5 @@ showQuote({
   language: state.language,
   anonimValue: languageSettings[state.language].anonimValue,
 });
+
+addPlayer();
