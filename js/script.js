@@ -10,7 +10,8 @@ import addPlayer from "./addPlayer.js";
 
 setState.partOfDay.subscribeOnChange(() => showGreeting({
   welcomeMsgs: languageSettings[state.language].welcomeMsgs,
-  nameValue: state.userName || languageSettings[state.language].namePlaceholder,
+  nameValue: state.userName,
+  namePlaceholder: languageSettings[state.language].namePlaceholder,
   setUserName: setState.userName,
   partOfDay: state.partOfDay,
 }));
