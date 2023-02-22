@@ -1,6 +1,7 @@
 const showGreeting = options => {
   const welcomeMsgField = document.querySelector('.greeting');
   const userNameField = document.querySelector('.name');
+  userNameField.placeholder = options.namePlaceholder;
 
   let userName = options.nameValue;
   const setUserName = options.setUserName;

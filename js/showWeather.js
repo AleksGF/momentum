@@ -12,12 +12,13 @@ const showWeather = options => {
   let city = options.city;
   const {cityPlaceholder, setCity, language, weatherUnits, windDirections, errorMsg} = options;
 
-  cityField.value = city || cityPlaceholder;
+  cityField.placeholder = cityPlaceholder;
+  cityField.value = city;
 
   const getWeather = async function(city) {
+    if (!city) return;
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${
-        city
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city
       }&lang=${
         language
       }&appid=${
@@ -82,6 +83,7 @@ const showWeather = options => {
 
 
   const cityUpdate = e => {
+    if (!e.target.value) return;
     city = e.target.value;
     setCity(city);
     getWeather(city);
