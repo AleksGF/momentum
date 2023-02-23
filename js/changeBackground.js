@@ -23,7 +23,12 @@ const changeBackground = options => {
     isImgLoading = true;
     slideNext.style.opacity = '0.3';
     slidePrev.style.opacity = '0.3';
-    const url = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${
+    /*const url = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${
+      ['night', 'morning', 'afternoon', 'evening'][options.state.partOfDay]
+    }/${
+      options.state.backgroundNumber
+    }.jpg`;*/
+    const url = `assets/images/${
       ['night', 'morning', 'afternoon', 'evening'][options.state.partOfDay]
     }/${
       options.state.backgroundNumber
