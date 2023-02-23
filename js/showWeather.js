@@ -15,6 +15,31 @@ const showWeather = options => {
   cityField.placeholder = cityPlaceholder;
   cityField.value = city;
 
+  const fillWeatherFields = (
+    error = null,
+    iconClass = null,
+    temp = '',
+    desc = '',
+    wind = '',
+    humidity = ''
+    ) => {
+    icon.className = 'weather-icon owf';
+    if (error) {
+      errorField.textContent = error;
+      temperatureField.textContent = '';
+      descriptionField.textContent = '';
+      windField.textContent = '';
+      humidityField.textContent = '';
+    } else {
+      icon.classList.add(iconClass);
+      temperatureField.textContent = temp;
+      descriptionField.textContent = desc;
+      windField.textContent = wind;
+      humidityField.textContent = humidity;
+      errorField.textContent = '';
+    }
+  };
+
   const getWeather = async function(city) {
     if (!city) return;
     try {
@@ -32,24 +57,27 @@ const showWeather = options => {
         throw new Error(data.message);
       }
 
-      icon.className = 'weather-icon owf';
-      icon.classList.add(`owf-${data.weather[0].id}`);
-      temperatureField.textContent = `${Math.round(data?.main?.temp)}°C`;
-      descriptionField.textContent = data?.weather[0]?.description;
-      windField.textContent = `${
-        Math.round(data?.wind?.speed)
-      }${
-        weatherUnits[0]
-      } (${
-        windDirections[Math.floor(data?.wind?.deg / 22.5)]
-      })`;
-      humidityField.textContent = `${Math.round(data?.main?.humidity)}${weatherUnits[1]}`;
+      fillWeatherFields(
+        null,
+        `owf-${data.weather[0].id}`,
+        `${Math.round(data?.main?.temp)}°C`,
+        data?.weather[0]?.description,
+        `${
+          Math.round(data?.wind?.speed)
+        }${
+          weatherUnits[0]
+        } (${
+          windDirections[Math.floor(data?.wind?.deg / 22.5)]
+        })`,
+        `${Math.round(data?.main?.humidity)}${weatherUnits[1]}`
+        );
     } catch (e) {
-      errorField.textContent = `${errorMsg}: ${e.message}`;
+      fillWeatherFields(`${errorMsg}: ${e.message}`);
     }
   };
 
   if (city) {
+    fillWeatherFields();
     getWeather(city);
   } else if (navigator.geolocation) {
     const getCity = async function({latitude, longitude}, key) {
@@ -72,6 +100,7 @@ const showWeather = options => {
         city = data[0]['local_names'][language] || data[0]?.name;
         setCity(city);
         cityField.value = city;
+        fillWeatherFields();
         getWeather(city);
       } catch (e) {
         console.log(`${errorMsg}: ${e.message}`);
@@ -83,9 +112,14 @@ const showWeather = options => {
 
 
   const cityUpdate = e => {
-    if (!e.target.value) return;
+    if (!e.target.value) {
+      setCity('');
+      fillWeatherFields();
+      return;
+    }
     city = e.target.value;
     setCity(city);
+    fillWeatherFields();
     getWeather(city);
   };
 
