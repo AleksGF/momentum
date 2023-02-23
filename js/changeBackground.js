@@ -21,6 +21,8 @@ const changeBackground = options => {
 
   const setBackground = () => {
     isImgLoading = true;
+    slideNext.style.opacity = '0.3';
+    slidePrev.style.opacity = '0.3';
     const url = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${
       ['night', 'morning', 'afternoon', 'evening'][options.state.partOfDay]
     }/${
@@ -33,12 +35,16 @@ const changeBackground = options => {
     img.onload = () => {
       body.style.backgroundImage = `url("${img.src}")`;
       isImgLoading = false;
+      slideNext.style.opacity = '1';
+      slidePrev.style.opacity = '1';
     };
 
     img.onerror = e => {
       console.log('Error when loading image');
       body.style.backgroundImage = 'url("../assets/img/bg.jpg")';
       isImgLoading = false;
+      slideNext.style.opacity = '1';
+      slidePrev.style.opacity = '1';
     }
   };
 

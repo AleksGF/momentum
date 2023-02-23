@@ -35,6 +35,7 @@ const showQuote = options => {
 
     try {
       isLoading = true;
+      changeQuoteBtn.style.opacity='0.3';
       if (language === 'uk') {
         const quote = await fetchQuote(getApiUrl('ru'));
         const quoteText = await translate(quote.quoteText);
@@ -50,6 +51,7 @@ const showQuote = options => {
       return quote;
     } finally {
       isLoading = false;
+      changeQuoteBtn.style.opacity='1';
     }
   };
 
