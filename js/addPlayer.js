@@ -59,11 +59,18 @@ const addPlayer = () => {
   const play = () => {
     audio.src = playList[currentTrackNumber].src;
     audio.currentTime = currentPlayTime;
-    audio.play();
-    isPlaying = true;
-    playBtn.classList.add('pause');
-    addPlaylistItems();
-    timerId = setInterval(addPlaylistItems, 1000);
+    const res = audio.play();
+    res.then(
+      () => {
+        isPlaying = true;
+        playBtn.classList.add('pause');
+        addPlaylistItems();
+        timerId = setInterval(addPlaylistItems, 1000);
+      },
+      (e) => {
+        console.log(e.message);
+      }
+    );
   };
 
   const pause = () => {
