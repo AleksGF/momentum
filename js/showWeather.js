@@ -34,16 +34,16 @@ const showWeather = options => {
 
       icon.className = 'weather-icon owf';
       icon.classList.add(`owf-${data.weather[0].id}`);
-      temperatureField.textContent = `${data?.main?.temp}°C`;
+      temperatureField.textContent = `${Math.round(data?.main?.temp)}°C`;
       descriptionField.textContent = data?.weather[0]?.description;
       windField.textContent = `${
-        data?.wind?.speed
+        Math.round(data?.wind?.speed)
       }${
         weatherUnits[0]
       } (${
         windDirections[Math.floor(data?.wind?.deg / 22.5)]
       })`;
-      humidityField.textContent = `${data?.main?.humidity}${weatherUnits[1]}`;
+      humidityField.textContent = `${Math.round(data?.main?.humidity)}${weatherUnits[1]}`;
     } catch (e) {
       errorField.textContent = `${errorMsg}: ${e.message}`;
     }
