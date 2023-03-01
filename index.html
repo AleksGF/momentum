@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="assets/favicon.ico" rel="shortcut icon" />
-    <link rel="stylesheet" href="css/owfont-regular.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="assets/favicon.ico" rel="shortcut icon"/>
+    <link rel="stylesheet" href="css/owfont-regular.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <title>momentum</title>
 </head>
 <body>
 <header class="header">
     <div class="player">
-        <div class="player-controls">
-            <button class="play-prev player-icon"></button>
-            <button class="play player-icon"></button>
-            <button class="play-next player-icon"></button>
+        <div class="current-track">
+            <div class="track-title">Some track name</div>
+            <div class="track-duration">
+                <span class="current-time">00:00</span>
+                <input type="range" class="seek-slider" max="100" value="0">
+                <span class="duration">00:00</span>
+            </div>
+        </div>
+        <div class="controls-wrapper">
+            <div class="player-controls">
+                <button class="play-prev player-icon"></button>
+                <button class="play player-icon"></button>
+                <button class="play-next player-icon"></button>
+            </div>
+            <div class="volume-controls">
+                <button class="volume-icon"></button>
+                <input type="range" class="volume-slider" max="100" value="100">
+            </div>
         </div>
         <ul class="play-list"></ul>
     </div>
     <div class="weather">
-        <input type="text" class="city" />
+        <input type="text" class="city"/>
         <i class="weather-icon owf"></i>
         <div class="weather-error"></div>
         <div class="description-container">
@@ -39,7 +53,7 @@
     <date class="date"></date>
     <div class="greeting-container">
         <span class="greeting"></span>
-        <input type="text" class="name" />
+        <input type="text" class="name"/>
     </div>
 </main>
 <footer class="footer">
