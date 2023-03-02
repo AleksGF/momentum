@@ -1,6 +1,12 @@
 import playList from "./data/playList.js";
 
 const addPlayer = () => {
+  const trackTitle = document.querySelector('.track-title');
+  const currentTrackTime = document.querySelector('.current-time');
+  const trackDuration = document.querySelector('.duration');
+  const seekSlider = document.querySelector('.seek-slider');
+  const volumeSlider = document.querySelector('.volume-slider');
+  const muteButton = document.querySelector('.volume-icon');
   const playBtn = document.querySelector('.play');
   const playNextBtn = document.querySelector('.play-next');
   const playPrevBtn = document.querySelector('.play-prev');
@@ -11,6 +17,7 @@ const addPlayer = () => {
   let currentTrackNumber = 0;
   let currentPlayTime = 0;
   let timerId = null;
+  let isSeekSliderChanging = false;
 
   const addPlaylistItems = () => {
     playlistContainer.innerHTML = '';
@@ -32,29 +39,35 @@ const addPlayer = () => {
       play();
     };
 
-    playList.forEach((el, i) => {
-      const li = document.createElement('li');
-      const duration = audio.duration;
-      const currentTime = Math.floor(audio.currentTime);
-      li.textContent = (i === currentTrackNumber && isPlaying)
-        ? `${el.title} - ${
-          String(Math.floor(currentTime / 60)).padStart(2,'0')
-        }:${
-          String(currentTime % 60).padStart(2, '0')
-        } (${
-          String(Math.floor(currentTime / duration * 100) || 0)
-        }%)`
-        : el.title;
-      li.classList.add('play-item');
-      (i === currentTrackNumber) ? li.classList.add('item-active') : li.classList.remove('item-active');
-      li.addEventListener('click', () => clickItemHandler(i));
-      container.push(li);
-    });
+      playList.forEach((el, i) => {
+        const li = document.createElement('li');
+        li.textContent = el.title;
+        li.classList.add('play-item');
+        (i === currentTrackNumber) ? li.classList.add('item-active') : li.classList.remove('item-active');
+        (i === currentTrackNumber && isPlaying) ? li.classList.add('item-playing') : li.classList.remove('item-playing');
+        li.addEventListener('click', () => clickItemHandler(i));
+        container.push(li);
+      });
 
-    playlistContainer.append(...container);
-  };
+      playlistContainer.append(...container);
+    };
 
   addPlaylistItems();
+
+  const showTrackTitle = () => {
+    trackTitle.textContent = playList[currentTrackNumber].title;
+  };
+
+  const showPlayProgress = () => {
+    currentTrackTime.textContent = `${
+      String(Math.floor(audio.currentTime / 60)).padStart(2,'0')
+    }:${
+      String(Math.round(audio.currentTime % 60)).padStart(2, '0')
+    }`;
+
+    if (!isSeekSliderChanging) seekSlider.value = audio.currentTime / audio.duration * 100;
+    seekSlider.style.setProperty('--play-duration', `${audio.currentTime / audio.duration * 100}%`);
+  };
 
   const play = () => {
     audio.src = playList[currentTrackNumber].src;
@@ -64,8 +77,15 @@ const addPlayer = () => {
       () => {
         isPlaying = true;
         playBtn.classList.add('pause');
+        showTrackTitle();
+        trackDuration.textContent = `${
+          String(Math.floor(audio.duration / 60)).padStart(2,'0')
+        }:${
+          String(Math.floor(audio.duration % 60)).padStart(2, '0')
+        }`;
         addPlaylistItems();
-        timerId = setInterval(addPlaylistItems, 1000);
+        showPlayProgress();
+        timerId = setInterval(showPlayProgress, 1000);
       },
       (e) => {
         console.log(e.message);
@@ -78,6 +98,7 @@ const addPlayer = () => {
     currentPlayTime = audio.currentTime;
     isPlaying = false;
     playBtn.classList.remove('pause');
+    addPlaylistItems();
     clearInterval(timerId);
     timerId = null;
   };
@@ -107,16 +128,42 @@ const addPlayer = () => {
   const audioEndHandler = () => {
     isPlaying = false;
     playBtn.classList.remove('pause');
+    addPlaylistItems();
     currentPlayTime = 0;
     clearInterval(timerId);
     timerId = null;
+    trackTitle.textContent = '';
     playNext();
+  };
+
+  const seekSliderHandler = e => {
+    if (!audio.duration) {
+      seekSlider.value = 0;
+      return;
+    }
+    currentPlayTime = audio.duration / 100 * e.target.value;
+    play();
+  };
+
+  const volumeSliderHandler = e => {
+    audio.volume = e.target.value / 100;
+    volumeSlider.style.setProperty('--volume-level', `${e.target.value}%`)
+  };
+
+  const muteButtonHandler = () => {
+    audio.muted = !audio.muted;
+    muteButton.classList.toggle('muted');
   };
 
   playBtn.addEventListener('click', playBtnHandler);
   playNextBtn.addEventListener('click', playNext);
   playPrevBtn.addEventListener('click', playPrev);
   audio.addEventListener('ended', audioEndHandler);
+  seekSlider.addEventListener('change', seekSliderHandler);
+  seekSlider.addEventListener('mousedown', () => {isSeekSliderChanging = true;});
+  seekSlider.addEventListener('mouseup', () => {isSeekSliderChanging = false;});
+  volumeSlider.addEventListener('input', volumeSliderHandler);
+  muteButton.addEventListener('click', muteButtonHandler);
 };
 
 export default addPlayer;
