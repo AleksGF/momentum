@@ -2,6 +2,7 @@ import playList from "./data/playList.js";
 
 const addPlayer = () => {
   const trackTitle = document.querySelector('.track-title');
+  let clonedTitle = null;
   const trackTitleWrapper = document.querySelector('.track-title-wrapper');
   const currentTrackTime = document.querySelector('.current-time');
   const trackDuration = document.querySelector('.duration');
@@ -62,10 +63,15 @@ const addPlayer = () => {
       timerIdForTitle = null;
     }
 
+    if (clonedTitle) {
+      clonedTitle.remove();
+      clonedTitle = null;
+    }
+
     trackTitle.textContent = playList[currentTrackNumber].title;
     const containerWidth = trackTitleWrapper.clientWidth;
     const titleWidth = trackTitle.clientWidth;
-    const clonedTitle = trackTitle.cloneNode();
+    clonedTitle = trackTitle.cloneNode();
     let titleLeft = (containerWidth - titleWidth) / 2;
 
     clonedTitle.style.left = (titleLeft - containerWidth) + 'px';
