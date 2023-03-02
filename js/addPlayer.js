@@ -2,6 +2,7 @@ import playList from "./data/playList.js";
 
 const addPlayer = () => {
   const trackTitle = document.querySelector('.track-title');
+  const trackTitleWrapper = document.querySelector('.track-title-wrapper');
   const currentTrackTime = document.querySelector('.current-time');
   const trackDuration = document.querySelector('.duration');
   const seekSlider = document.querySelector('.seek-slider');
@@ -17,6 +18,7 @@ const addPlayer = () => {
   let currentTrackNumber = 0;
   let currentPlayTime = 0;
   let timerId = null;
+  let timerIdForTitle = null;
   let isSeekSliderChanging = false;
 
   const addPlaylistItems = () => {
@@ -55,7 +57,31 @@ const addPlayer = () => {
   addPlaylistItems();
 
   const showTrackTitle = () => {
+    if (timerIdForTitle) {
+      clearInterval(timerIdForTitle);
+      timerIdForTitle = null;
+    }
+
     trackTitle.textContent = playList[currentTrackNumber].title;
+    const containerWidth = trackTitleWrapper.clientWidth;
+    const titleWidth = trackTitle.clientWidth;
+    const clonedTitle = trackTitle.cloneNode();
+    let titleLeft = (containerWidth - titleWidth) / 2;
+
+    clonedTitle.style.left = (titleLeft - containerWidth) + 'px';
+    clonedTitle.textContent = trackTitle.textContent;
+    trackTitleWrapper.append(clonedTitle);
+
+    const moveTrackTitle = () => {
+      titleLeft += 1;
+      if (titleLeft >= containerWidth) titleLeft = 0;
+
+      trackTitle.style.left = titleLeft + 'px';
+      clonedTitle.style.left = (titleLeft - containerWidth) + 'px';
+    };
+
+    moveTrackTitle();
+    timerIdForTitle = setInterval(moveTrackTitle, 100);
   };
 
   const showPlayProgress = () => {
