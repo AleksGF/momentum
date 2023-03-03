@@ -226,6 +226,38 @@ body {
   transform: scale(1.1);
 }
 
+.add-track-select {
+  display: none;
+}
+
+.add-track-button {
+  position: absolute;
+  right: 7px;
+  bottom: 115px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background-image: url("../assets/svg/addTrack.svg");
+  background-size: 24px 24px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #4c4c4c;
+  border: 0;
+  outline: 0;
+  opacity: .8;
+  cursor: pointer;
+  transition: .3s;
+  z-index: 1;
+}
+
+.add-track-button:hover {
+  opacity: 1;
+}
+
+.add-track-button:active {
+  transform: scale(1.1);
+}
+
 .play-list {
   height: 100px;
   text-align: left;

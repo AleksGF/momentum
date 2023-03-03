@@ -1,6 +1,7 @@
-import playList from "./data/playList.js";
+import defaultPlayList from "./data/playList.js";
 
 const addPlayer = () => {
+  const playList = [...defaultPlayList];
   const trackTitle = document.querySelector('.track-title');
   let clonedTitle = null;
   const trackTitleWrapper = document.querySelector('.track-title-wrapper');
@@ -13,6 +14,8 @@ const addPlayer = () => {
   const playNextBtn = document.querySelector('.play-next');
   const playPrevBtn = document.querySelector('.play-prev');
   const playlistContainer = document.querySelector('.play-list');
+  const newTrackSelect = document.querySelector('.add-track-select');
+  const newTrackAddBtn = document.querySelector('.add-track-button');
   const audio = new Audio();
 
   let isPlaying = false;
@@ -187,6 +190,17 @@ const addPlayer = () => {
     muteButton.classList.toggle('muted');
   };
 
+  const newTrackAddHandler = e => {
+    if (e.target.files.length) {
+      [...e.target.files].forEach(file => {
+        const title = file.name.slice(0, file.name.lastIndexOf('.'));
+        const src = URL.createObjectURL(file);
+        playList.push({title, src});
+      });
+      addPlaylistItems();
+    }
+  };
+
   playBtn.addEventListener('click', playBtnHandler);
   playNextBtn.addEventListener('click', playNext);
   playPrevBtn.addEventListener('click', playPrev);
@@ -196,6 +210,8 @@ const addPlayer = () => {
   seekSlider.addEventListener('mouseup', () => {isSeekSliderChanging = false;});
   volumeSlider.addEventListener('input', volumeSliderHandler);
   muteButton.addEventListener('click', muteButtonHandler);
+  newTrackAddBtn.addEventListener('click', () => {newTrackSelect.click();});
+  newTrackSelect.addEventListener('change', newTrackAddHandler);
 };
 
 export default addPlayer;
