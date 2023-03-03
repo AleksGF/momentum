@@ -12,6 +12,7 @@ const showQuote = options => {
   };
 
   const getQuote = async function(language) {
+
     const getApiUrl = language => `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=${language}`;
 
     const fetchQuote = async function(url) {
@@ -35,7 +36,7 @@ const showQuote = options => {
 
     try {
       isLoading = true;
-      changeQuoteBtn.style.opacity='0.3';
+      changeQuoteBtn.classList.add('fetching');
       if (language === 'uk') {
         const quote = await fetchQuote(getApiUrl('ru'));
         const quoteText = await translate(quote.quoteText);
@@ -51,7 +52,7 @@ const showQuote = options => {
       return quote;
     } finally {
       isLoading = false;
-      changeQuoteBtn.style.opacity='1';
+      changeQuoteBtn.classList.remove('fetching');
     }
   };
 

@@ -260,7 +260,7 @@ body {
 
 .play-list {
   width: calc(100% - 35px);
-  height: 100px;
+  max-height: 140px;
   border: #ffffff solid 1px;
   border-radius: 3px;
   text-align: left;
@@ -487,6 +487,11 @@ body {
 .change-quote {
   margin-bottom: 30px;
   background-image: url("../assets/svg/reload.svg");
+}
+
+.fetching {
+  opacity: .3;
+  transform: scale(.1);
 }
 
 .quote {
