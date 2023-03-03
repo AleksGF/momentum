@@ -232,8 +232,8 @@ body {
 
 .add-track-button {
   position: absolute;
-  right: 7px;
-  bottom: 115px;
+  right: 10px;
+  bottom: 10px;
   width: 24px;
   height: 24px;
   border-radius: 12px;
@@ -259,7 +259,10 @@ body {
 }
 
 .play-list {
+  width: calc(100% - 35px);
   height: 100px;
+  border: #ffffff solid 1px;
+  border-radius: 3px;
   text-align: left;
   opacity: .8;
   font-size: .8em;
