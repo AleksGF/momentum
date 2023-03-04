@@ -8,6 +8,7 @@ const showWeather = options => {
   const descriptionField = document.querySelector('.weather-description');
   const windField = document.querySelector('.wind');
   const humidityField = document.querySelector('.humidity');
+  const forecastIcons = document.querySelectorAll('.forecast-icon');
 
   let city = options.city;
   const {cityPlaceholder, setCity, language, weatherUnits, windDirections, errorMsg} = options;
@@ -30,6 +31,7 @@ const showWeather = options => {
       descriptionField.textContent = '';
       windField.textContent = '';
       humidityField.textContent = '';
+      [...forecastIcons].forEach(icon => {icon.style.display='none'});
     } else {
       icon.classList.add(iconClass);
       temperatureField.textContent = temp;
@@ -37,6 +39,7 @@ const showWeather = options => {
       windField.textContent = wind;
       humidityField.textContent = humidity;
       errorField.textContent = '';
+      [...forecastIcons].forEach(icon => {icon.style.display='inline-block'});
     }
   };
 
