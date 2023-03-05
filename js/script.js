@@ -46,6 +46,9 @@ showQuote({
 
 addPlayer();
 
-showSettings(
-
-);
+showSettings({
+  language: state.language,
+  titles: languageSettings[state.language].settingsTitles,
+  languages: languageSettings[state.language].languageItems,
+  shouldShowMenu: false,
+  });

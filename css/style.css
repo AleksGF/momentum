@@ -561,6 +561,9 @@ body {
 }
 
 .settings-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
   position: absolute;
   padding: 20px;
   right: 30px;
@@ -613,6 +616,21 @@ body {
 
 .close-btn:active {
   transform: scale(1.1);
+}
+
+.settings-title {
+  margin-bottom: 30px;
+}
+
+.settings-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.language-title-field {
+  margin-bottom: 30px;
 }
 
 @media (max-width: 768px) {

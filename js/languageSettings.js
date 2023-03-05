@@ -11,6 +11,21 @@ const en = {
   errorMsg: 'Some error',
   anonimValue: 'Anonim',
   dateOptions,
+  settingsTitles: {
+    header: 'Settings',
+    languageItem: 'Choose language',
+    playerItem: 'Show Player?',
+    weatherItem: 'Show Weather?',
+    timeItem: 'Show Time?',
+    dateItem: 'Show Date?',
+    greetingItem: 'Show Greeting?',
+    quoteItem: 'Show Quote?',
+  },
+  languageItems: {
+    en: 'English',
+    uk: 'Ukrainian',
+    ru: 'Russian',
+  },
 };
 
 const uk = {
@@ -24,6 +39,21 @@ const uk = {
   errorMsg: 'Сталася помилка',
   anonimValue: 'Анонім',
   dateOptions,
+  settingsTitles: {
+    header: 'Налаштування',
+    languageItem: 'Оберіть мову',
+    playerItem: 'Показати Аудіоплеєр?',
+    weatherItem: 'Показати Погоду?',
+    timeItem: 'Показати Час?',
+    dateItem: 'Показати Дату?',
+    greetingItem: 'Показати Привітання?',
+    quoteItem: 'Показати Цитату?',
+  },
+  languageItems: {
+    en: 'Англійська',
+    uk: 'Українська',
+    ru: 'Російська',
+  },
 };
 
 const ru = {
@@ -37,6 +67,21 @@ const ru = {
   errorMsg: 'Произошла ошибка',
   anonimValue: 'Аноним',
   dateOptions,
+  settingsTitles: {
+    header: 'Настройки',
+    languageItem: 'Выберите язык',
+    playerItem: 'Показать Аудиоплеер?',
+    weatherItem: 'Показать Погоду?',
+    timeItem: 'Показать Время?',
+    dateItem: 'Показать Дату?',
+    greetingItem: 'Показать Приветствие?',
+    quoteItem: 'Показать Цитату?',
+  },
+  languageItems: {
+    en: 'Английский',
+    uk: 'Украинский',
+    ru: 'Русский',
+  },
 };
 
 const languageSettings = { en, uk, ru };
