@@ -1,5 +1,7 @@
 const showSettings = options => {
-  const currentLanguage = options.language;
+  const render = options.render;
+  const appSettings = Object.assign({}, options.state.appSettings);
+  const saveSettings = options.actions.appSettings;
   const settingsBtn = document.querySelector('.settings-button');
   const settingsContainer = document.querySelector('.settings-container');
   const settingsInputItems = settingsContainer.querySelectorAll('.settings-item input');
@@ -23,12 +25,13 @@ const showSettings = options => {
     let option = document.createElement('option');
     option.setAttribute('value', lang);
     option.textContent = languages[lang];
-    if (lang === currentLanguage) {
+    if (lang === appSettings.language) {
       option.setAttribute('selected', 'true');
     }
     languageSelectOptions.push(option);
   }
 
+  languageSelectContainer.innerHTML = '';
   languageSelectContainer.append(...languageSelectOptions);
 
   doShowPlayerField.firstChild.textContent = options.titles.playerItem;
@@ -52,13 +55,24 @@ const showSettings = options => {
     }
   };
 
+  const changeLanguageHandler = e => {
+    appSettings.language = e.target.value;
+    saveSettings(appSettings);
+    render(options.state, options.actions, true);
+  };
+
   const settingsItemsHandler = e => {
-    console.log(e.currentTarget.value + ' ' + e.currentTarget.checked);
+    appSettings[e.currentTarget.value] = e.currentTarget.checked;
+    saveSettings(appSettings);
+    render(options.state, options.actions, true);
   };
 
   settingsBtn.addEventListener('click', showMenu);
 
+  languageSelectContainer.addEventListener('change', changeLanguageHandler);
+
   [...settingsInputItems].forEach(item => {
+    item.checked = !!appSettings[item.value];
     item.addEventListener('change', settingsItemsHandler);
   });
 };

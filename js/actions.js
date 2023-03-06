@@ -1,5 +1,11 @@
-const setState = {
+const actions = state => ({
+  appSettings: appSettings => {
+    state.appSettings = appSettings;
+    localStorage.setItem('appSettings', JSON.stringify(appSettings));
+  },
+
   userName: newName => {
+    state.userName = newName;
     localStorage.setItem('userName', newName);
   },
 
@@ -10,19 +16,24 @@ const setState = {
       this.subscribers.push(subscriber);
     },
 
-    onChange: function (newPartOfDay, state) {
+    onChange: function (newPartOfDay) {
       state.partOfDay = newPartOfDay;
       this.subscribers.forEach(subscriber => subscriber.call(null, newPartOfDay));
     },
   },
 
-  setBackgroundNumber: (newNumber, state) => {
+  setBackgroundNumber: (newNumber) => {
     state.backgroundNumber = newNumber;
   },
 
   city: newCity => {
+    state.city = newCity;
     localStorage.setItem('city', newCity);
   },
-}
 
-export default setState;
+  setTimeUpdateTimer: timer => {
+    state.timeUpdateTimer = timer;
+  },
+});
+
+export default actions;

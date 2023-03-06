@@ -1,6 +1,7 @@
 import defaultPlayList from "./data/playList.js";
 
-const addPlayer = () => {
+const addPlayer = options => {
+  const container = document.querySelector('.player');
   const playList = [...defaultPlayList];
   const trackTitle = document.querySelector('.track-title');
   let clonedTitle = null;
@@ -24,6 +25,8 @@ const addPlayer = () => {
   let timerId = null;
   let timerIdForTitle = null;
   let isSeekSliderChanging = false;
+
+  container.style.visibility = options.state.appSettings.doShowPlayer ? 'visible' : 'hidden';
 
   const addPlaylistItems = () => {
     playlistContainer.innerHTML = '';

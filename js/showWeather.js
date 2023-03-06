@@ -1,6 +1,7 @@
 const showWeather = options => {
   const key = '92314951124358555b66152e3c71b94e';
 
+  const container = document.querySelector('.weather');
   const cityField = document.querySelector('.city');
   const icon = document.querySelector('.weather-icon');
   const errorField = document.querySelector('.weather-error');
@@ -10,8 +11,11 @@ const showWeather = options => {
   const humidityField = document.querySelector('.humidity');
   const forecastIcons = document.querySelectorAll('.forecast-icon');
 
-  let city = options.city;
-  const {cityPlaceholder, setCity, language, weatherUnits, windDirections, errorMsg} = options;
+  let city = options.state.city;
+  const language = options.state.appSettings.language;
+  const {cityPlaceholder, setCity, weatherUnits, windDirections, errorMsg} = options;
+
+  container.style.visibility = options.state.appSettings.doShowWeather ? 'visible' : 'hidden';
 
   cityField.placeholder = cityPlaceholder;
   cityField.value = city;

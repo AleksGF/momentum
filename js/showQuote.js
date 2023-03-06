@@ -1,10 +1,14 @@
 const showQuote = options => {
+  const container=document.querySelector('.quote-container');
   const changeQuoteBtn = document.querySelector('.change-quote');
   const quoteTextField = document.querySelector('.quote');
   const quoteAuthorField = document.querySelector('.author');
 
-  const {language, anonimValue} = options;
+  const language = options.state.appSettings.language;
+  const anonimValue = options.anonimValue;
   let isLoading = false;
+
+  container.style.visibility = options.state.appSettings.doShowQuote ? 'visible' : 'hidden';
 
   const setQuote = ({quoteText, quoteAuthor}) => {
     quoteTextField.textContent = quoteText;
