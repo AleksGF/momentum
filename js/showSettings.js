@@ -1,7 +1,4 @@
 const showSettings = options => {
-  const render = options.render;
-  const appSettings = Object.assign({}, options.state.appSettings);
-  const saveSettings = options.actions.appSettings;
   const settingsBtn = document.querySelector('.settings-button');
   const settingsContainer = document.querySelector('.settings-container');
   const settingsInputItems = settingsContainer.querySelectorAll('.settings-item input');
@@ -9,14 +6,19 @@ const showSettings = options => {
   const headerField = document.querySelector('.settings-title');
   const languageTitleField = document.querySelector('.language-title-field');
   const languageSelectContainer = document.querySelector('.language-select');
-  const languages = Object.assign({}, options.languages);
-  let languageSelectOptions = [];
   const doShowPlayerField = document.querySelector('.do-show-player');
   const doShowWeatherField = document.querySelector('.do-show-weather');
   const doShowTimeField = document.querySelector('.do-show-time');
   const doShowDateField = document.querySelector('.do-show-date');
   const doShowGreetingField = document.querySelector('.do-show-greeting');
   const doShowQuoteField = document.querySelector('.do-show-quote');
+
+  const render = options.actions.render;
+  const shouldShowMenu = options.shouldShowSettings;
+  const appSettings = Object.assign({}, options.state.appSettings);
+  const saveSettings = options.actions.appSettings;
+  const languages = Object.assign({}, options.languages);
+  let languageSelectOptions = [];
 
   headerField.textContent = options.titles.header;
   languageTitleField.firstChild.textContent = options.titles.languageItem;
@@ -46,8 +48,6 @@ const showSettings = options => {
     document.addEventListener('click', hideMenu, {capture: true});
   };
 
-  if (options.shouldShowMenu) showMenu();
-
   const hideMenu = e => {
     if (e.target === closeBtn || !settingsContainer.contains(e.target)) {
       settingsContainer.classList.remove('settings-active');
@@ -58,13 +58,13 @@ const showSettings = options => {
   const changeLanguageHandler = e => {
     appSettings.language = e.target.value;
     saveSettings(appSettings);
-    render(options.state, options.actions, true);
+    render(options.state, options.actions);
   };
 
   const settingsItemsHandler = e => {
     appSettings[e.currentTarget.value] = e.currentTarget.checked;
     saveSettings(appSettings);
-    render(options.state, options.actions, true);
+    render(options.state, options.actions);
   };
 
   settingsBtn.addEventListener('click', showMenu);

@@ -1,6 +1,6 @@
-const getState = () => {
+const state = () => {
   const userName = localStorage.getItem('userName');
-  const city = localStorage.getItem('city');
+  const savedCity = localStorage.getItem('city');
   const savedSettings = localStorage.getItem('appSettings');
 
   const getBrowserLanguage = () => {
@@ -27,6 +27,14 @@ const getState = () => {
     doShowQuote: true,
   };
 
+  const city = savedCity ? JSON.parse(savedCity) : {
+    enteredName: null,
+    name: null,
+    en: null,
+    uk: null,
+    ru: null,
+  };
+
   const getRandom = () => String(Math.floor(Math.random() * 19) + 1).padStart(2, '0');
 
   const backgroundNumber = getRandom();
@@ -35,12 +43,26 @@ const getState = () => {
     appSettings,
     userName,
     city,
+    weatherAPIKey: '92314951124358555b66152e3c71b94e',
+    weatherState: {
+      error: null,
+      iconClass: null,
+      desc: null,
+      temp: null,
+      wind: null,
+      humidity: null,
+    },
     partOfDay: null,
     timeUpdateTimer: null,
     backgroundNumber,
+    currentQuote: {
+      quoteText: null,
+      quoteAuthor: null,
+      quoteLanguage: null,
+    },
   };
 
   return state;
 }
 
-export default getState;
+export default state;

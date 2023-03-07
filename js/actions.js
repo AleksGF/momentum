@@ -27,12 +27,20 @@ const actions = state => ({
   },
 
   city: newCity => {
-    state.city = newCity;
-    localStorage.setItem('city', newCity);
+    state.city = {...newCity};
+    localStorage.setItem('city', JSON.stringify(newCity));
+  },
+
+  setWeatherState: weatherState => {
+    state.weatherState = {...weatherState};
   },
 
   setTimeUpdateTimer: timer => {
     state.timeUpdateTimer = timer;
+  },
+
+  setCurrentQuote: quote => {
+    state.currentQuote = {...quote};
   },
 });
 

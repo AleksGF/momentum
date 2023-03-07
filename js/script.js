@@ -1,4 +1,4 @@
-import getState from "./getState.js";
+import getState from "./state.js";
 import getActions from "./actions.js";
 import languageSettings from "./languageSettings.js";
 import showTime from "./showTime.js";
@@ -12,8 +12,7 @@ import showSettings from "./showSettings.js";
 const state = getState();
 const actions = getActions(state);
 
-function render(state, actions, shouldShowSettings) {
-  const appSettings = state.appSettings;
+function render(state, actions) {
   const modulesOptions = {
     showGreeting : {
       welcomeMsgs: languageSettings[state.appSettings.language].welcomeMsgs,
@@ -33,14 +32,15 @@ function render(state, actions, shouldShowSettings) {
     },
     showWeather: {
       cityPlaceholder: languageSettings[state.appSettings.language].cityPlaceholder,
-      setCity: actions.city,
       weatherUnits: languageSettings[state.appSettings.language].weatherUnits,
       windDirections: languageSettings[state.appSettings.language].windDirections,
       errorMsg: languageSettings[state.appSettings.language].errorMsg,
+      actions,
       state,
     },
     showQuote: {
-      anonimValue: languageSettings[state.appSettings.language].anonimValue,
+      languageSettings,
+      actions,
       state,
     },
     addPlayer: {
@@ -49,9 +49,7 @@ function render(state, actions, shouldShowSettings) {
     showSettings: {
       titles: languageSettings[state.appSettings.language].settingsTitles,
       languages: languageSettings[state.appSettings.language].languageItems,
-      shouldShowSettings,
-      render,
-      actions,
+      actions: {...actions, render},
       state,
     },
   };
@@ -64,9 +62,7 @@ function render(state, actions, shouldShowSettings) {
   showWeather(modulesOptions.showWeather);
   showQuote(modulesOptions.showQuote);
   addPlayer(modulesOptions.addPlayer);
-  showSettings(modulesOptions.showSettings, shouldShowSettings);
+  showSettings(modulesOptions.showSettings);
 }
 
-window.render = render;
-
-render(state, actions,false);
+render(state, actions);

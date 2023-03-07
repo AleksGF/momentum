@@ -1,6 +1,4 @@
 const showWeather = options => {
-  const key = '92314951124358555b66152e3c71b94e';
-
   const container = document.querySelector('.weather');
   const cityField = document.querySelector('.city');
   const icon = document.querySelector('.weather-icon');
@@ -11,43 +9,46 @@ const showWeather = options => {
   const humidityField = document.querySelector('.humidity');
   const forecastIcons = document.querySelectorAll('.forecast-icon');
 
-  let city = options.state.city;
+  const key = options.state.weatherAPIKey;
+  const cityNames = Object.assign({}, options.state.city);
   const language = options.state.appSettings.language;
-  const {cityPlaceholder, setCity, weatherUnits, windDirections, errorMsg} = options;
+  const setCity = options.actions.city;
+  const setWeatherState = options.actions.setWeatherState;
+  const {cityPlaceholder, weatherUnits, windDirections, errorMsg} = options;
+  let weatherState = Object.assign({}, options.state.weatherState);
+  let city = cityNames[language] || cityNames.name || cityNames.enteredName;
 
   container.style.visibility = options.state.appSettings.doShowWeather ? 'visible' : 'hidden';
 
   cityField.placeholder = cityPlaceholder;
   cityField.value = city;
 
-  const fillWeatherFields = (
-    error = null,
-    iconClass = null,
-    temp = '',
-    desc = '',
-    wind = '',
-    humidity = ''
-    ) => {
+  const fillWeatherFields = ({error, iconClass, desc, temp, wind, humidity}) => {
     icon.className = 'weather-icon owf';
+    [...forecastIcons].forEach(icon => {
+      icon.style.display = 'none'
+    });
+
     if (error) {
       errorField.textContent = error;
       temperatureField.textContent = '';
       descriptionField.textContent = '';
       windField.textContent = '';
       humidityField.textContent = '';
-      [...forecastIcons].forEach(icon => {icon.style.display='none'});
     } else {
-      icon.classList.add(iconClass);
-      temperatureField.textContent = temp;
-      descriptionField.textContent = desc;
-      windField.textContent = wind;
-      humidityField.textContent = humidity;
+      if (iconClass) icon.classList.add(iconClass);
+      temperatureField.textContent = temp || '';
+      descriptionField.textContent = desc || '';
+      windField.textContent = wind || '';
+      humidityField.textContent = humidity || '';
       errorField.textContent = '';
-      [...forecastIcons].forEach(icon => {icon.style.display='inline-block'});
+      [...forecastIcons].forEach(icon => {
+        icon.style.display = 'inline-block'
+      });
     }
   };
 
-  const getWeather = async function(city) {
+  const getWeather = async function (city) {
     if (!city) return;
     try {
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city
@@ -57,81 +58,172 @@ const showWeather = options => {
         key
       }&units=metric`;
 
-      const res = await fetch(url);
-      const data = await res.json();
+      const resp = await fetch(url);
+
+      if (!resp.ok) {
+        throw new Error(resp.statusText);
+      }
+
+      const data = await resp.json();
 
       if (data.cod !== 200) {
         throw new Error(data.message);
       }
 
-      fillWeatherFields(
-        null,
-        `owf-${data.weather[0].id}`,
-        `${Math.round(data?.main?.temp)}°C`,
-        data?.weather[0]?.description,
-        `${
+      weatherState = {
+        error: null,
+        iconClass: `owf-${data.weather[0].id}`,
+        desc: data?.weather[0]?.description,
+        temp: `${Math.round(data?.main?.temp)} °C`,
+        wind: `${
           Math.round(data?.wind?.speed)
-        }${
+        } ${
           weatherUnits[0]
         } (${
           windDirections[Math.floor(data?.wind?.deg / 22.5)]
         })`,
-        `${Math.round(data?.main?.humidity)}${weatherUnits[1]}`
-        );
+        humidity: `${Math.round(data?.main?.humidity)} ${weatherUnits[1]}`,
+      };
     } catch (e) {
-      fillWeatherFields(`${errorMsg}: ${e.message}`);
+      weatherState = {
+        error: `${errorMsg}: ${e.message}`,
+        iconClass: null,
+        desc: null,
+        temp: null,
+        wind: null,
+        humidity: null,
+      };
     }
+
+    return weatherState;
   };
 
-  if (city) {
-    fillWeatherFields();
-    getWeather(city);
-  } else if (navigator.geolocation) {
-    const getCity = async function({latitude, longitude}, key) {
-      try {
-        const url = `https://api.openweathermap.org/geo/1.0/reverse?lat=${
-          latitude
-        }&lon=${
-          longitude
-        }&limit=1&appid=${
-          key
-        }`;
+  const getCityNames = async function (city) {
+    try {
+      const url = `https://api.openweathermap.org/geo/1.0/direct?q=${
+        city
+      }&limit=1&appid=${
+        key
+      }`;
 
-        const res = await fetch(url);
-        const data = await res.json();
+      const resp = await fetch(url);
 
-        if (data?.message) {
-          throw new Error(data.message);
-        }
-
-        city = data[0]['local_names'][language] || data[0]?.name;
-        setCity(city);
-        cityField.value = city;
-        fillWeatherFields();
-        getWeather(city);
-      } catch (e) {
-        console.log(`${errorMsg}: ${e.message}`);
+      if (!resp.ok) {
+        throw new Error(resp.statusText);
       }
-    };
 
-    navigator.geolocation.getCurrentPosition((position) => getCity(position.coords, key));
-  }
+      const data = await resp.json();
 
+      if (data?.message) {
+        throw new Error(data.message);
+      }
+
+      return data[0];
+    } catch (e) {
+      console.log(`${errorMsg}: ${e.message}`);
+    }
+  };
 
   const cityUpdate = e => {
     if (!e.target.value) {
-      setCity('');
-      fillWeatherFields();
+      city = '';
+      setCity({
+        enteredName: null,
+        name: null,
+        en: null,
+        uk: null,
+        ru: null,
+      });
+      weatherState = {
+        error: null,
+        iconClass: null,
+        desc: null,
+        temp: null,
+        wind: null,
+        humidity: null,
+      };
+      setWeatherState(weatherState);
+      fillWeatherFields(weatherState);
       return;
     }
+
     city = e.target.value;
-    setCity(city);
-    fillWeatherFields();
-    getWeather(city);
+    getCityNames(city).then(data => {
+      setCity({
+        enteredName: city,
+        name: data?.name || null,
+        en: data?.local_names?.en || null,
+        uk: data?.local_names?.uk || null,
+        ru: data?.local_names?.ru || null,
+      });
+    });
+    getWeather(city).then(weatherState => {
+      setWeatherState(weatherState);
+      fillWeatherFields(weatherState);
+    });
   };
 
-  cityField.addEventListener('change', cityUpdate);
+  const getCity = async function ({latitude, longitude}, key) {
+    try {
+      const url = `https://api.openweathermap.org/geo/1.0/reverse?lat=${
+        latitude
+      }&lon=${
+        longitude
+      }&limit=1&appid=${
+        key
+      }`;
 
+      const resp = await fetch(url);
+
+      if (!resp.ok) {
+        throw new Error(resp.statusText);
+      }
+
+      const data = await resp.json();
+
+      if (data?.message) {
+        throw new Error(data.message);
+      }
+
+      return data[0];
+    } catch (e) {
+      console.log(`${errorMsg}: ${e.message}`);
+    }
+  };
+
+  if (!weatherState.error && weatherState.desc) {
+    fillWeatherFields(weatherState);
+  }
+
+  if (!city && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        getCity(position.coords, key).then(data => {
+          setCity({
+            enteredName: null,
+            name: data.name || null,
+            en: data.local_names.en || null,
+            uk: data.local_names.uk || null,
+            ru: data.local_names.ru || null,
+          });
+          city = data.local_names[language] || data.name || '';
+          cityField.value = city;
+          getWeather(city).then(weatherState => {
+            setWeatherState(weatherState);
+            fillWeatherFields(weatherState);
+          });
+        });
+      });
+  }
+
+  if (city && !weatherState.desc) {
+    getWeather(city).then(weatherState => {
+      setWeatherState(weatherState);
+      fillWeatherFields(weatherState);
+    });
+  }
+
+  cityField.addEventListener('change', cityUpdate);
 };
 
 export default showWeather;
