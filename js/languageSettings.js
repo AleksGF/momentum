@@ -7,10 +7,25 @@ const en = {
   namePlaceholder: 'Enter your name',
   cityPlaceholder: 'Your city',
   weatherUnits: ['m/s', 'mmHg'],
-  windDirections: ['N', 'NE', 'NE', 'E', 'E', 'SE', 'SE', 'S', 'S', 'SW', 'SW', 'W', 'W', 'NW', 'NW', 'N'],
+  windDirections: ['N', 'NE', 'NE', 'E', 'E', 'SE', 'SE', 'S', 'S', 'SW', 'SW', 'W', 'W', 'NW', 'NW', 'N', 'N'],
   errorMsg: 'Some error',
   anonimValue: 'Anonim',
   dateOptions,
+  settingsTitles: {
+    header: 'Settings',
+    languageItem: 'Choose language',
+    playerItem: 'Show Player?',
+    weatherItem: 'Show Weather?',
+    timeItem: 'Show Time?',
+    dateItem: 'Show Date?',
+    greetingItem: 'Show Greeting?',
+    quoteItem: 'Show Quote?',
+  },
+  languageItems: {
+    en: 'English',
+    uk: 'Ukrainian',
+    ru: 'Russian',
+  },
 };
 
 const uk = {
@@ -20,10 +35,25 @@ const uk = {
   namePlaceholder: "Введіть Ваше ім'я",
   cityPlaceholder: 'Ваше місто',
   weatherUnits: ['м/с', 'мм рт.ст.'],
-  windDirections: ['Пн.', 'Пн.Сх.', 'Пн.Сх.', 'Сх.', 'Сх.', 'Пд.Сх.', 'Пд.Сх.', 'Пд.', 'Пд.', 'Пд.Зх.', 'Пд.Зх.', 'Зх.', 'Зх.', 'Пн.Зх.', 'Пн.Зх.', 'Пн.'],
+  windDirections: ['Пн.', 'Пн.Сх.', 'Пн.Сх.', 'Сх.', 'Сх.', 'Пд.Сх.', 'Пд.Сх.', 'Пд.', 'Пд.', 'Пд.Зх.', 'Пд.Зх.', 'Зх.', 'Зх.', 'Пн.Зх.', 'Пн.Зх.', 'Пн.', 'Пн.'],
   errorMsg: 'Сталася помилка',
   anonimValue: 'Анонім',
   dateOptions,
+  settingsTitles: {
+    header: 'Налаштування',
+    languageItem: 'Оберіть мову',
+    playerItem: 'Показати Аудіоплеєр?',
+    weatherItem: 'Показати Погоду?',
+    timeItem: 'Показати Час?',
+    dateItem: 'Показати Дату?',
+    greetingItem: 'Показати Привітання?',
+    quoteItem: 'Показати Цитату?',
+  },
+  languageItems: {
+    en: 'Англійська',
+    uk: 'Українська',
+    ru: 'Російська',
+  },
 };
 
 const ru = {
@@ -33,10 +63,25 @@ const ru = {
   namePlaceholder: "Введите Ваше имя",
   cityPlaceholder: 'Ваш город',
   weatherUnits: ['м/с', 'мм рт.ст.'],
-  windDirections: ['С', 'СВ', 'СВ', 'В', 'В', 'ЮВ', 'ЮВ', 'Ю', 'Ю', 'ЮЗ', 'ЮЗ', 'З', 'З', 'СЗ', 'СЗ', 'С'],
+  windDirections: ['С', 'СВ', 'СВ', 'В', 'В', 'ЮВ', 'ЮВ', 'Ю', 'Ю', 'ЮЗ', 'ЮЗ', 'З', 'З', 'СЗ', 'СЗ', 'С', 'С'],
   errorMsg: 'Произошла ошибка',
   anonimValue: 'Аноним',
   dateOptions,
+  settingsTitles: {
+    header: 'Настройки',
+    languageItem: 'Выберите язык',
+    playerItem: 'Показать Аудиоплеер?',
+    weatherItem: 'Показать Погоду?',
+    timeItem: 'Показать Время?',
+    dateItem: 'Показать Дату?',
+    greetingItem: 'Показать Приветствие?',
+    quoteItem: 'Показать Цитату?',
+  },
+  languageItems: {
+    en: 'Английский',
+    uk: 'Украинский',
+    ru: 'Русский',
+  },
 };
 
 const languageSettings = { en, uk, ru };

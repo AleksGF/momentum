@@ -1,33 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="assets/favicon.ico" rel="shortcut icon" />
-    <link rel="stylesheet" href="css/owfont-regular.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="assets/favicon.ico" rel="shortcut icon"/>
+    <link rel="stylesheet" href="css/owfont-regular.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <title>momentum</title>
 </head>
 <body>
 <header class="header">
     <div class="player">
-        <div class="player-controls">
-            <button class="play-prev player-icon"></button>
-            <button class="play player-icon"></button>
-            <button class="play-next player-icon"></button>
+        <div class="current-track">
+            <div class="track-title-wrapper">
+                <div class="track-title"></div>
+            </div>
+            <div class="track-duration">
+                <span class="current-time">00:00</span>
+                <input type="range" class="seek-slider" max="100" value="0">
+                <span class="duration">00:00</span>
+            </div>
         </div>
+        <div class="controls-wrapper">
+            <div class="player-controls">
+                <button class="play-prev player-icon"></button>
+                <button class="play player-icon"></button>
+                <button class="play-next player-icon"></button>
+            </div>
+            <div class="volume-controls">
+                <button class="volume-icon"></button>
+                <input type="range" class="volume-slider" max="100" value="100">
+            </div>
+        </div>
+        <input type="file" class="add-track-select" accept="audio/*" multiple>
+        <button class="add-track-button"></button>
         <ul class="play-list"></ul>
     </div>
     <div class="weather">
-        <input type="text" class="city" />
+        <input type="text" class="city"/>
         <i class="weather-icon owf"></i>
         <div class="weather-error"></div>
         <div class="description-container">
+            <div class="forecast-icon temperature-icon"></div>
             <span class="temperature"></span>
             <span class="weather-description"></span>
         </div>
-        <div class="wind"></div>
-        <div class="humidity"></div>
+        <div class="wind-container">
+            <div class="forecast-icon wind-icon"></div>
+            <span class="wind"></span>
+        </div>
+        <div class="humidity-container">
+            <div class="forecast-icon humidity-icon"></div>
+            <span class="humidity"></span>
+        </div>
     </div>
 </header>
 <main class="main">
@@ -39,15 +64,43 @@
     <date class="date"></date>
     <div class="greeting-container">
         <span class="greeting"></span>
-        <input type="text" class="name" />
+        <input type="text" class="name"/>
     </div>
 </main>
 <footer class="footer">
-    <button class="change-quote"></button>
-    <div>
-        <div class="quote"></div>
-        <div class="author"></div>
+    <div class="quote-container">
+        <button class="change-quote"></button>
+        <div>
+            <div class="quote"></div>
+            <div class="author"></div>
+        </div>
     </div>
+    <div class="settings-container">
+        <button class="close-btn"></button>
+        <h2 class="settings-title"></h2>
+        <label class="settings-item language-title-field">
+            <select class="language-select"></select>
+        </label>
+        <label class="settings-item do-show-player">
+            <input type="checkbox" value="doShowPlayer">
+        </label>
+        <label class="settings-item do-show-weather">
+            <input type="checkbox" value="doShowWeather">
+        </label>
+        <label class="settings-item do-show-time">
+            <input type="checkbox" value="doShowTime">
+        </label>
+        <label class="settings-item do-show-date">
+            <input type="checkbox" value="doShowDate">
+        </label>
+        <label class="settings-item do-show-greeting">
+            <input type="checkbox" value="doShowGreeting">
+        </label>
+        <label class="settings-item do-show-quote">
+            <input type="checkbox" value="doShowQuote">
+        </label>
+    </div>
+    <button class="settings-button"></button>
 </footer>
 <script src="js/script.js" type="module"></script>
 </body>
