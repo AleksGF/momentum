@@ -44,6 +44,7 @@ function render(state, actions) {
       state,
     },
     addPlayer: {
+      actions,
       state,
     },
     showSettings: {

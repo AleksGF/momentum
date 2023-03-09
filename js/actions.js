@@ -39,6 +39,26 @@ const actions = state => ({
     state.timeUpdateTimer = timer;
   },
 
+  setPlayList: playlist => {
+    state.defaultPlayList = [...playlist];
+  },
+
+  setCurrentTrackNumber: number => {
+    state.currentTrackNumber = number;
+  },
+
+  setCurrentPlayTime: time => {
+    state.currentPlayTime = time;
+  },
+
+  setPlayerTimer: timer => {
+    state.playerTimer = timer;
+  },
+
+  setPlayerTittleTimer: timer => {
+    state.playerTittleTimer = timer;
+  },
+
   setCurrentQuote: quote => {
     state.currentQuote = {...quote};
   },

@@ -1,8 +1,5 @@
-import defaultPlayList from "./data/playList.js";
-
 const addPlayer = options => {
   const container = document.querySelector('.player');
-  const playList = [...defaultPlayList];
   const trackTitle = document.querySelector('.track-title');
   let clonedTitle = null;
   const trackTitleWrapper = document.querySelector('.track-title-wrapper');
@@ -19,12 +16,32 @@ const addPlayer = options => {
   const newTrackAddBtn = document.querySelector('.add-track-button');
   const audio = new Audio();
 
+  const playlist =   [...options.state.defaultPlayList];
+  let currentTrackNumber = options.state.currentTrackNumber;
+  let currentPlayTime = options.state.currentPlayTime;
+  let timerId = options.state.playerTimer;
+  let timerIdForTitle = options.state.playerTittleTimer;
+
+  const setPlaylist = options.actions.setPlayList;
+  const setCurrentTrackNumber = options.actions.setCurrentTrackNumber;
+  const setCurrentPlayTime = options.actions.setCurrentPlayTime;
+  const setTimerId = options.actions.setPlayerTimer;
+  const setTimerIdForTitle = options.actions.setPlayerTittleTimer;
+
   let isPlaying = false;
-  let currentTrackNumber = 0;
-  let currentPlayTime = 0;
-  let timerId = null;
-  let timerIdForTitle = null;
   let isSeekSliderChanging = false;
+
+  if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
+    setTimerId(timerId);
+  }
+
+  if (timerIdForTitle) {
+    clearInterval(timerIdForTitle);
+    timerIdForTitle = null;
+    setTimerIdForTitle(timerIdForTitle);
+  }
 
   container.style.visibility = options.state.appSettings.doShowPlayer ? 'visible' : 'hidden';
 
@@ -35,7 +52,9 @@ const addPlayer = options => {
     const clickItemHandler = i => {
       if (i !== currentTrackNumber) {
         currentTrackNumber = i;
+        setCurrentTrackNumber(i);
         currentPlayTime = 0;
+        setCurrentPlayTime(currentPlayTime);
         play();
         return;
       }
@@ -48,7 +67,7 @@ const addPlayer = options => {
       play();
     };
 
-      playList.forEach((el, i) => {
+      playlist.forEach((el, i) => {
         const li = document.createElement('li');
         li.textContent = el.title;
         li.classList.add('play-item');
@@ -67,6 +86,7 @@ const addPlayer = options => {
     if (timerIdForTitle) {
       clearInterval(timerIdForTitle);
       timerIdForTitle = null;
+      setTimerIdForTitle(timerIdForTitle);
     }
 
     if (clonedTitle) {
@@ -74,7 +94,7 @@ const addPlayer = options => {
       clonedTitle = null;
     }
 
-    trackTitle.textContent = playList[currentTrackNumber].title;
+    trackTitle.textContent = playlist[currentTrackNumber].title;
     const containerWidth = trackTitleWrapper.clientWidth;
     const titleWidth = trackTitle.clientWidth;
     clonedTitle = trackTitle.cloneNode();
@@ -94,6 +114,7 @@ const addPlayer = options => {
 
     moveTrackTitle();
     timerIdForTitle = setInterval(moveTrackTitle, 100);
+    setTimerIdForTitle(timerIdForTitle);
   };
 
   const showPlayProgress = () => {
@@ -108,7 +129,7 @@ const addPlayer = options => {
   };
 
   const play = () => {
-    audio.src = playList[currentTrackNumber].src;
+    audio.src = playlist[currentTrackNumber].src;
     audio.currentTime = currentPlayTime;
     const res = audio.play();
     res.then(
@@ -124,6 +145,7 @@ const addPlayer = options => {
         addPlaylistItems();
         showPlayProgress();
         timerId = setInterval(showPlayProgress, 1000);
+        setTimerId(timerId);
       },
       (e) => {
         console.log(e.message);
@@ -134,24 +156,30 @@ const addPlayer = options => {
   const pause = () => {
     audio.pause();
     currentPlayTime = audio.currentTime;
+    setCurrentPlayTime(currentPlayTime);
     isPlaying = false;
     playBtn.classList.remove('pause');
     addPlaylistItems();
     clearInterval(timerId);
     timerId = null;
+    setTimerId(timerId);
   };
 
   const playNext = () => {
     currentPlayTime = 0;
+    setCurrentPlayTime(currentPlayTime);
     currentTrackNumber += 1;
-    if (currentTrackNumber >= playList.length) currentTrackNumber = 0;
+    if (currentTrackNumber >= playlist.length) currentTrackNumber = 0;
+    setCurrentTrackNumber(currentTrackNumber);
     play();
   };
 
   const playPrev = () => {
     currentPlayTime = 0;
+    setCurrentPlayTime(currentPlayTime);
     currentTrackNumber -= 1;
-    if (currentTrackNumber < 0) currentTrackNumber = playList.length - 1;
+    if (currentTrackNumber < 0) currentTrackNumber = playlist.length - 1;
+    setCurrentTrackNumber(currentTrackNumber);
     play();
   };
 
@@ -168,8 +196,10 @@ const addPlayer = options => {
     playBtn.classList.remove('pause');
     addPlaylistItems();
     currentPlayTime = 0;
+    setCurrentPlayTime(currentPlayTime);
     clearInterval(timerId);
     timerId = null;
+    setTimerId(timerId);
     trackTitle.textContent = '';
     playNext();
   };
@@ -180,6 +210,7 @@ const addPlayer = options => {
       return;
     }
     currentPlayTime = audio.duration / 100 * e.target.value;
+    setCurrentPlayTime(currentPlayTime);
     play();
   };
 
@@ -198,8 +229,9 @@ const addPlayer = options => {
       [...e.target.files].forEach(file => {
         const title = file.name.slice(0, file.name.lastIndexOf('.'));
         const src = URL.createObjectURL(file);
-        playList.push({title, src});
+        playlist.push({title, src});
       });
+      setPlaylist(playlist);
       addPlaylistItems();
     }
   };

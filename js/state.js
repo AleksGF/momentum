@@ -1,3 +1,5 @@
+import defaultPlayList from "./data/playList.js";
+
 const state = () => {
   const userName = localStorage.getItem('userName');
   const savedCity = localStorage.getItem('city');
@@ -54,6 +56,11 @@ const state = () => {
     },
     partOfDay: null,
     timeUpdateTimer: null,
+    defaultPlayList,
+    currentTrackNumber: 0,
+    currentPlayTime: 0,
+    playerTimer: null,
+    playerTittleTimer: null,
     backgroundNumber,
     currentQuote: {
       quoteText: null,
